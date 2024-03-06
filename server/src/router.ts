@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import express from "express";
 import { products } from "./db/schema";
 import { config } from "dotenv";
+import { eq } from "drizzle-orm";
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Running router in production mode');
@@ -26,6 +27,16 @@ router.get('/products', async (req: Request, res: Response) => {
   try {
     const productRows = await db.select().from(products);
     res.json(productRows);
+  } catch (err) {
+    handleQueryError(err, res);
+  }
+});
+
+router.get('/products/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const productRow = await db.select().from(products).where(eq(products.id, +id));
+    res.json(productRow);
   } catch (err) {
     handleQueryError(err, res);
   }
