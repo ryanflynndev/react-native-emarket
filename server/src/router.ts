@@ -13,7 +13,6 @@ if (process.env.NODE_ENV === 'production') {
   config({ path: '.dev.env' });
 }
 
-console.log('Database URL:', process.env.DATABASE_URL);
 const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false }});
 const router = express.Router();
 const db = drizzle(pool)
