@@ -1,10 +1,7 @@
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
 import Products from "../screens/Products";
+import { ProductsStackParamList } from "./types/types";
 
-type ProductsStackParamList = {
-  Products: undefined;
-  ProductDetails: { id: number };
-};
 
 const ProductsStack = createNativeStackNavigator<ProductsStackParamList>();
 
