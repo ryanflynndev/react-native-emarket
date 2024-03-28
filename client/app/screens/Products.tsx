@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ListRenderItem, Image, SafeAreaView } from 'react-native';
+import { Text, FlatList, StyleSheet, TouchableOpacity, ListRenderItem, Image, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../api/api';
 import { Product } from '../api/types/interfaces';
@@ -8,15 +8,15 @@ const Products = ({ navigation }: ProductsPageProps) => {
   const [products, setProducts] = useState<Array<Product>>([]);
 
   useEffect(() => {
-    const load = async() => {
+    const load = async () => {
       const data = await getProducts();
-      console.log("products", data);
       setProducts(data);
     };
     load();
   }, []);
 
   const renderProductItem: ListRenderItem<Product> = ({ item }) => {
+    console.log('Item id', item.id);
     return (
       <TouchableOpacity style={styles.productItem} onPress={() => navigation.navigate('ProductDetails', { id: item.id })}>
         <Image style={styles.productImage} source={{ uri: item.product_image }} />

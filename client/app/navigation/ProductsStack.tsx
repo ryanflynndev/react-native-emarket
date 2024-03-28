@@ -1,6 +1,7 @@
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
 import Products from "../screens/Products";
 import { ProductsStackParamList } from "./types/types";
+import ProductDetails from "../screens/ProductDetails";
 
 
 const ProductsStack = createNativeStackNavigator<ProductsStackParamList>();
@@ -19,6 +20,7 @@ const ProductsStackNav = () => {
     }}
   >
     <ProductsStack.Screen name="Products" component={Products} options={{headerTitle: 'Ecomm'}} />
+    <ProductsStack.Screen name="ProductDetails" component={ProductDetails} options={{headerTitle: ''}} />
   </ProductsStack.Navigator>
   );
 }

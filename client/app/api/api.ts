@@ -8,3 +8,7 @@ const backendClient = new BackendClient(API_URL);
 export const getProducts = async (): Promise<Array<Product>> => {
     return await backendClient.getProducts();
 };
+
+export const getProduct = async (productId: number): Promise<Product | null> => {
+    return await backendClient.getProduct(productId);
+};

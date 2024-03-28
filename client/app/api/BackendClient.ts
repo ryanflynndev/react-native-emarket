@@ -28,4 +28,14 @@ export default class BackendClient {
       throw new Error('Failed to fetch products', err);
     }
   }
+
+  async getProduct(productId: number): Promise<Product | null> {
+    try {
+      const { data } = await this.axios.get(`/products/${productId}`);
+      return data[0];
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
 }
