@@ -1,8 +1,8 @@
 import { Text, FlatList, StyleSheet, TouchableOpacity, ListRenderItem, Image, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../api/api';
-import { Product } from '../api/types/interfaces';
-import { ProductsPageProps } from '../navigation/types/types';
+import { Product } from '../api/types';
+import { ProductsPageProps } from '../navigation/types';
 
 const Products = ({ navigation }: ProductsPageProps) => {
   const [products, setProducts] = useState<Array<Product>>([]);

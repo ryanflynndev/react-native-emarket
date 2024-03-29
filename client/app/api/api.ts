@@ -1,5 +1,5 @@
 import BackendClient from "./BackendClient";
-import { Product } from "./types/interfaces";
+import { Product } from "./types";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 

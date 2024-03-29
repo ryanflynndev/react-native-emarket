@@ -1,12 +1,25 @@
-import { Text, StyleSheet, SafeAreaView, Image } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, Image, View, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { ProductDetailsPageProps } from '../navigation/types/types';
-import { Product } from '../api/types/interfaces';
+import { ProductDetailsPageProps } from '../navigation/types';
+import { Product } from '../api/types';
 import { getProduct } from '../api/api';
+import useCartStore from '../state/cartStore';
+import { Ionicons } from '@expo/vector-icons';
 
 const ProductDetails = ({ route }: ProductDetailsPageProps) => {
   const { id: productId } = route.params;
   const [product, setProduct] = useState<Product | null>(null);
+  const [count, setCount] = useState(0);
+  const { products, addProduct, reduceProduct } = useCartStore((state) => ({
+      products: state.products,
+      addProduct: state.addProduct,
+      reduceProduct: state.reduceProduct,
+  }));
+
+  useEffect(() => {
+    console.log('Updated products');
+    updateProductQuantity();
+  }, [products]);
 
   useEffect(() => {
     const load = async () => {
@@ -20,6 +33,16 @@ const ProductDetails = ({ route }: ProductDetailsPageProps) => {
     };
     load();
   }, []);
+
+  const updateProductQuantity = () => {
+    const result = products.filter(p => p.id === productId);
+    console.log('Result', result);
+    if (result.length > 0) {
+      setCount(result[0].quantity);
+    } else {
+      setCount(0);
+    }
+  }
 
   if (!product) {
     return (
@@ -36,6 +59,15 @@ const ProductDetails = ({ route }: ProductDetailsPageProps) => {
         <Text style={styles.productCategory}>{product.product_category}</Text>
         <Text style={styles.productPrice}>{`$${product.product_price}`}</Text>
         <Text style={styles.productDescription}>{product.product_description}</Text>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => addProduct(product)}>
+            <Ionicons name="add" size={24}></Ionicons>
+          </TouchableOpacity>
+            <Text style={styles.quantity}>{count}</Text>
+          <TouchableOpacity style={styles.button} onPress={() => reduceProduct(product)}>
+            <Ionicons name="remove" size={24}></Ionicons>
+          </TouchableOpacity>
+        </View>
     </SafeAreaView>
   );
 }
@@ -55,26 +87,52 @@ const styles = StyleSheet.create({
   productName: {
     fontSize: 24,
     fontWeight: 'bold',
-    margin: 20,
+    marginHorizontal: 20,
   },
   productPrice: {
     fontSize: 18,
     fontWeight: 'bold',
-    margin: 20,
+    margin: 10,
+    marginHorizontal: 20,
   },
   productCategory: {
     fontSize: 16,
-    margin: 20,
+    margin: 10,
+    marginHorizontal: 20,
     color: '#666'
   },
   productDescription: {
     fontSize: 16,
-    margin: 20,
+    margin: 10,
+    marginHorizontal: 20,
   },
   loading: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 270,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    gap: 20,
+  },
+  button: {
+    paddingVertical: 12,
+    borderRadius: 8,
+    backgroundColor: '#F5EEE6',
+    alignItems: 'center',
+    flex: 1,
+    borderColor: '#333A73',
+    borderWidth: 2,
+  },
+  quantity: {
+    fontSize: 16,
+    width: 50,
+    fontWeight: 'bold',
+    textAlign: 'center',
   }
 })
 

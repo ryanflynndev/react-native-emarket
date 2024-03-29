@@ -1,7 +1,7 @@
 // Class to fetch data from the backend
 
 import axios, { Axios } from 'axios';
-import { Product } from './types/interfaces';
+import { Product } from './types';
 
 export default class BackendClient {
 
