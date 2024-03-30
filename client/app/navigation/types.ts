@@ -1,3 +1,4 @@
+import { NavigationProp } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type ProductsStackParamList = {
@@ -11,3 +12,5 @@ export type ProductsPageProps = NativeStackScreenProps<ProductsStackParamList, '
 export type ProductDetailsPageProps = NativeStackScreenProps<ProductsStackParamList, 'ProductDetails'>;
 
 export type CartModalPageProps = NativeStackScreenProps<ProductsStackParamList, 'CartModal'>;
+
+export type StackNavigation = NavigationProp<ProductsStackParamList>;

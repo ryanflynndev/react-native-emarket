@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Products from "../screens/Products";
-import { ProductsStackParamList } from "./types";
+import { ProductsStackParamList, StackNavigation } from "./types";
 import ProductDetails from "../screens/ProductDetails";
 import CartModal from "../screens/CartModal";
 import { useNavigation } from "@react-navigation/native";
@@ -34,7 +34,7 @@ const ProductsStackNav = () => {
 };
 
 const cartButton = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigation>();
   const { products } = useCartStore((state) => ({
     products: state.products,
   }));

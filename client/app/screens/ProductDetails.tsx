@@ -60,12 +60,12 @@ const ProductDetails = ({ route }: ProductDetailsPageProps) => {
         <Text style={styles.productPrice}>{`$${product.product_price}`}</Text>
         <Text style={styles.productDescription}>{product.product_description}</Text>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => addProduct(product)}>
-            <Ionicons name="add" size={24}></Ionicons>
-          </TouchableOpacity>
-            <Text style={styles.quantity}>{count}</Text>
           <TouchableOpacity style={styles.button} onPress={() => reduceProduct(product)}>
             <Ionicons name="remove" size={24}></Ionicons>
+          </TouchableOpacity>
+            <Text style={styles.quantity}>{count}</Text>
+          <TouchableOpacity style={styles.button} onPress={() => addProduct(product)}>
+            <Ionicons name="add" size={24}></Ionicons>
           </TouchableOpacity>
         </View>
     </SafeAreaView>
