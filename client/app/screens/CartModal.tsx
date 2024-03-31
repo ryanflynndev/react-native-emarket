@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { createOrder } from '../api/api';
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 const CartModal = () => {
   const [email, setEmail] = useState<string>('');
@@ -40,6 +41,15 @@ const CartModal = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={65}>
+      {order && <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} fallSpeed={2500} autoStart={true} fadeOut={false} />}
+      {order && (
+        <View>
+          <Text style={styles.cartTitle}>Order Placed!</Text>
+          <TouchableOpacity style={styles.submitButton} onPress={() => setOrder(null)}>
+            <Text style={styles.submitButtonText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <Text style={styles.cartTitle}>Your Cart</Text>
       { products.length === 0 && <Text style={styles.emptyCart}>Your cart is empty</Text> }
       {!order && (
