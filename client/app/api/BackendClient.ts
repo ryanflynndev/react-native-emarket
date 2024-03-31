@@ -1,7 +1,7 @@
 // Class to fetch data from the backend
 
 import axios, { Axios } from 'axios';
-import { Product } from './types';
+import { CreateOrder, Order, Product } from './types';
 
 export default class BackendClient {
 
@@ -35,6 +35,16 @@ export default class BackendClient {
       return data[0];
     } catch (err) {
       console.error(err);
+      return null;
+    }
+  }
+
+  async createOrder(order: CreateOrder): Promise<Order | null> {
+    try {
+      const { data } = await this.axios.post('/orders', order);
+      return data;
+    } catch (err) {
+      console.error('Error creating order', err);
       return null;
     }
   }

@@ -16,7 +16,6 @@ const Products = ({ navigation }: ProductsPageProps) => {
   }, []);
 
   const renderProductItem: ListRenderItem<Product> = ({ item }) => {
-    console.log('Item id', item.id);
     return (
       <TouchableOpacity style={styles.productItem} onPress={() => navigation.navigate('ProductDetails', { id: item.id })}>
         <Image style={styles.productImage} source={{ uri: item.product_image }} />

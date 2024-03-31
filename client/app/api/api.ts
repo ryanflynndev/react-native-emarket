@@ -1,5 +1,5 @@
 import BackendClient from "./BackendClient";
-import { Product } from "./types";
+import { CreateOrder, Order, Product } from "./types";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -12,3 +12,7 @@ export const getProducts = async (): Promise<Array<Product>> => {
 export const getProduct = async (productId: number): Promise<Product | null> => {
     return await backendClient.getProduct(productId);
 };
+
+export const createOrder = async (order: CreateOrder): Promise<Order | null> => {
+    return await backendClient.createOrder(order);
+}
